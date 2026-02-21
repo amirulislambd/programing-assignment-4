@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- font family -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- tailwind css -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+      * {
+        font-family: "Geist", sans-serif;
+        
+      }
+    </style>
+
+    <title>Job Application Tracker</title>
+  </head>
+  <body class="my-8 md:my-12">
+    <header class="container mx-auto sticky top-0 mb-5 bg-white z-1">
+      <h1
+        class="text-center text-3xl md:text-start md:text-4xl font-bold md:mb-5"
+      >
+        Job Application Tracker
+      </h1>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="shadow-sm bg-white p-5 text-center md:text-start">
+          <p>Total</p>
+          <p id="total-count" class="text-black font-bold text-xl">0</p>
+        </div>
+        <div class="shadow-sm bg-white p-5 text-center md:text-start">
+          <p>Interview</p>
+          <p id="interview-count" class="text-green-500 font-bold text-xl">0</p>
+        </div>
+        <div class="shadow-sm bg-white p-5 text-center md:text-start">
+          <p>Rejected</p>
+          <p id="rejected-count" class="text-red-500 font-bold text-xl">0</p>
+        </div>
+      </div>
+    </header>
+    <main class="container mx-auto space-y-5">
+      <h1 class="text-xl text-center md:text-2xl md:text-start">
+        Available Jobs
+      </h1>
+      <!-- buttons -->
+      <div id="all-cards" class="text-center md:text-start">
+        <button id="btn-all" class="btn btn-primary">All</button>
+        <button id="btn-interview" class="btn btn-soft">Interview</button>
+        <button id="btn-Rejecte" class="btn btn-primary">Rejected</button>
+      </div>
+      <!-- cards -->
+      <section id="card-section">
+        <div
+          class="p-2 mx-3 md:mx-0 md:space-y-2 shadow-sm md:p-6 flex justify-between"
+        >
+          <div class="left-side">
+            <div class="md:space-y-2">
+              <h1 class="text-xl font-semibold">Mobile First Corp</h1>
+              <p class="text-lg md:text-lg">React Native Developer</p>
+            </div>
+            <vid class="space-y-2">
+              <p class="text-gray-500 text-xs md:text-lg">
+                Remote . Full-time . 1130.000 - 1175.000
+              </p>
+              <button class="shadow-lg py-2 px-4 bg-blue-100">
+                NOT APPLIED
+              </button>
+              <p>
+                Build cross-platform mobile applications using React Native.
+                Work on products used by millions of users worldwide.
+              </p>
+              <vid>
+                <button class="btn btn-outline btn-primary">INTERVIEW</button>
+                <button class="btn btn-outline btn-error">REJECTED</button>
+              </vid>
+            </vid>
+          </div>
+          <div class="right-side text-red-500">
+            <button class="btn btn-circle">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- interview section -->
+       <section>
+        <div class="h-screen w-full text-center space-y-2">
+            <img class="mx-auto" src="./assets/assignment_7959593 1.png" alt="">
+            <h3 class="text-xl font-bold">No jobs available</h3>
+            <p class="text-sm md:text-lg">Check back soon for new job opportunities</p>
+        </div>
+       </section>
+    </main>
+    <script src="./js/jobAplication.js"></script>
+  </body>
+</html>
