@@ -1,13 +1,22 @@
+let interViewList = [];
+let rejectedList = [];
+let currentStatus = "All";
+const mainContainer = document.querySelector("main");
+const allCards = document.getElementById("card-section");
+const filterSection = document.getElementById("filter-section");
 const totalCount = document.getElementById("total-count");
+const totalJob = document.getElementById("totalJob");
 const interviewCount = document.getElementById("interview-count");
 const rejectCount = document.getElementById("rejected-count");
-const filterSection = document.getElementById('filter-section')
-const noSubject = document.getElementById('no-subject')
-// removeHidden(noSubject)
-// noSubject.classList.remove('hidden')
-console.log(noSubject)
-const allCards = document.getElementById("card-section");
-totalCount.innerText = allCards.children.length;
+const noSubject = document.getElementById("no-subject");
+// console.log(filterSection.children);
+function allCounts() {
+  totalCount.innerText = allCards.children.length;
+  totalJob.innerText = allCards.children.length;
+  interviewCount.innerText = interViewList.length;
+  rejectCount.innerText = rejectedList.length;
+}
+allCounts();
 
 const bnt_all = document.getElementById("btn-all");
 const btn_interview = document.getElementById("btn-interview");
@@ -15,32 +24,195 @@ const btn_rejected = document.getElementById("btn-Rejected");
 
 // toggle styles
 function toggleBtn(id) {
-  bnt_all.classList.add('btn',"btn-soft");
-  btn_interview.classList.add("btn","btn-soft");
-  btn_rejected.classList.add("btn","btn-soft");
+  bnt_all.classList.add("btn-soft");
+  btn_interview.classList.add("btn-soft");
+  btn_rejected.classList.add("btn-soft");
 
-  const addNewClass = document.getElementById(id);
-  addNewClass.classList.remove('btn-soft')
-  addNewClass.classList.add("btn-primary");
-  if(id === 'btn-interview'){
-    allCards.classList.add('hidden')
-    console.log(id)
-  }else if(id === 'btn-all'){
+  const selectBtn = document.getElementById(id);
+  currentStatus = id;
+  selectBtn.classList.remove("btn-soft");
+  selectBtn.classList.add("btn-primary");
+
+  if (id === "btn-interview") {
+    allCards.classList.add("hidden");
+    filterSection.classList.remove("hidden");
+    renderApplication();
+    // if(interViewList.length===0){
+    //     noSubject.classList.add('hidden')
+    // }
+  } else if (id === "btn-all") {
+    filterSection.classList.add("hidden");
+    allCards.classList.remove("hidden");
     noSubject.classList.add('hidden')
-    allCards.classList.remove('hidden')
-  }else{
+    renderApplication();
+  }else if (id === "btn-Rejected") {
+    filterSection.classList.remove('hidden')
     allCards.classList.add('hidden')
-    noSubject.classList.remove('hidden')
-
+    renderRejected();
+    if(filterSection.length===0){
+        noSubject.classList.remove('hidden')
+    }else{
+        noSubject.classList.add('hidden')
+    }
+  }
+  if(id !== 'btn-all'){
+    if(filterSection.children.length <= 1 ){
+        noSubject.classList.remove('hidden')
+    }else{
+        noSubject.classList.add('hidden')
+    }
   }
 }
-
+// console.log(filterSection.children.length)
 // remove hidden
-function removeHidden(id){
-id.classList.remove('hidden')
+// function removeHidden(id) {
+//   id.classList.remove("hidden");
+// }
+mainContainer.addEventListener("click", function (e) {
+  const currentCard = e.target.closest(".job-card");
+  if (!currentCard) return;
+  //   INTERVIEW
+  if (currentCard) {
+    if (e.target.classList.contains("inv-btn")) {
+      const title = currentCard.querySelector(".job-title").innerText;
+      const subtitle = currentCard.querySelector(".job-subTitle").innerText;
+      const category = currentCard.querySelector(".job-category").innerText;
+      const status = currentCard.querySelector(".job-status").innerText;
+      const description =
+        currentCard.querySelector(".job-description").innerText;
+      currentCard.querySelector(".job-status").innerText = "INTERVIEW";
+      const cardInfo = {
+        title,
+        subtitle,
+        category,
+        status: "INTERVIEW",
+        description,
+      };
+      const existTitle = interViewList.find(
+        (item) => item.title === cardInfo.title,
+      );
+
+      if (!existTitle) {
+        interViewList.push(cardInfo);
+      }
+      rejectedList = interViewList.filter(
+        (item) => item.title != cardInfo.title,
+      );
+      if (currentStatus === "btn-Rejected") {
+        renderRejected();
+      }
+      // renderApplication();
+      allCounts();
+    } else if (e.target.classList.contains("rjc-btn")) {
+      const title = currentCard.querySelector(".job-title").innerText;
+      const subtitle = currentCard.querySelector(".job-subTitle").innerText;
+      const category = currentCard.querySelector(".job-category").innerText;
+      const status = currentCard.querySelector(".job-status").innerText;
+      const description =
+        currentCard.querySelector(".job-description").innerText;
+      // interview
+      currentCard.querySelector(".job-status").innerText = "REJECTED";
+      const cardInfo = {
+        title,
+        subtitle,
+        category,
+        status: "REJECTED",
+        description,
+      };
+      const existTitle = rejectedList.find(
+        (item) => item.title === cardInfo.title,
+      );
+
+      if (!existTitle) {
+        rejectedList.push(cardInfo);
+      }
+      interViewList = interViewList.filter(
+        (item) => item.title != cardInfo.title,
+      );
+      if (currentStatus === "btn-interview") {
+        renderApplication();
+      }
+      allCounts();
+    }
+  }
+  //   REJECTED
+});
+
+function renderApplication() {
+  filterSection.innerHTML = "";
+  for (let item of interViewList) {
+    let div = document.createElement("div");
+    div.className =
+      "job-card p-2 mx-3 md:mx-0 md:space-y-2 shadow-sm md:p-6 flex justify-between";
+
+    div.innerHTML = ` 
+    <div class="left-side">
+    <div class="md:space-y-2">
+      <h1 class="job-title text-xl font-semibold">${item.title}</h1>
+      <p class="job-subTitle text-lg md:text-lg">${item.subtitle}</p>
+    </div>
+    <div class="space-y-2">
+      <p  class="job-category text-gray-500 text-xs md:text-lg">
+        ${item.category}
+      </p>
+      <button class="job-status shadow-lg py-2 px-4 bg-blue-100">
+        ${item.status}
+      </button>
+      <p class="job-description">
+        Build cross-platform mobile applications using React Native.
+        Work on products used by millions of users worldwide.
+      </p>
+      <div class="flex gap-2">
+        <button class="inv-btn btn btn-outline btn-primary">INTERVIEW</button>
+        <button class="rjc-btn btn btn-outline btn-error">REJECTED</button>
+      </div>
+    </div>
+  </div>
+  <div class="right-side text-red-500">
+    <button class="delete-btn btn btn-circle">
+      <i class="fa-regular fa-trash-can"></i>
+    </button>
+  </div>
+`;
+    filterSection.append(div);
+  }
 }
+function renderRejected() {
+  filterSection.innerHTML = "";
+  for (let item of rejectedList) {
+    let div = document.createElement("div");
+    div.className =
+      "job-card p-2 mx-3 md:mx-0 md:space-y-2 shadow-sm md:p-6 flex justify-between";
 
-btn_interview.addEventListener('click', function(){
-    removeHidden(noSubject)
-})
-
+    div.innerHTML = ` 
+    <div class="left-side">
+    <div class="md:space-y-2">
+      <h1 class="job-title text-xl font-semibold">${item.title}</h1>
+      <p class="job-subTitle text-lg md:text-lg">${item.subtitle}</p>
+    </div>
+    <div class="space-y-2">
+      <p  class="job-category text-gray-500 text-xs md:text-lg">
+        ${item.category}
+      </p>
+      <button class="job-status shadow-lg py-2 px-4 bg-blue-100">
+        ${item.status}
+      </button>
+      <p class="job-description">
+        Build cross-platform mobile applications using React Native.
+        Work on products used by millions of users worldwide.
+      </p>
+      <div class="flex gap-2">
+        <button class="inv-btn btn btn-outline btn-primary">INTERVIEW</button>
+        <button class="rjc-btn btn btn-outline btn-error">REJECTED</button>
+      </div>
+    </div>
+  </div>
+  <div class="right-side text-red-500">
+    <button class="delete-btn btn btn-circle">
+      <i class="fa-regular fa-trash-can"></i>
+    </button>
+  </div>
+`;
+    filterSection.append(div);
+  }
+}
