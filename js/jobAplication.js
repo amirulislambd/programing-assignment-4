@@ -33,41 +33,33 @@ function toggleBtn(id) {
   selectBtn.classList.remove("btn-soft");
   selectBtn.classList.add("btn-primary");
 
-  if (id === "btn-interview") {
-    allCards.classList.add("hidden");
-    filterSection.classList.remove("hidden");
-    renderApplication();
-    // if(interViewList.length===0){
-    //     noSubject.classList.add('hidden')
-    // }
-  } else if (id === "btn-all") {
-    filterSection.classList.add("hidden");
+  if (id === "btn-all") {
     allCards.classList.remove("hidden");
+    filterSection.classList.add("hidden");
     noSubject.classList.add('hidden')
-    renderApplication();
-  }else if (id === "btn-Rejected") {
-    filterSection.classList.remove('hidden')
+  }else{
     allCards.classList.add('hidden')
-    renderRejected();
-    if(filterSection.length===0){
-        noSubject.classList.remove('hidden')
-    }else{
-        noSubject.classList.add('hidden')
-    }
+    filterSection.classList.remove('hidden')
   }
-  if(id !== 'btn-all'){
-    if(filterSection.children.length <= 1 ){
-        noSubject.classList.remove('hidden')
-    }else{
-        noSubject.classList.add('hidden')
-    }
+  if(id === 'btn-interview'){
+    renderApplication()
+  }else if(id === 'btn-Rejected'){
+    renderRejected()
   }
 }
-// console.log(filterSection.children.length)
-// remove hidden
-// function removeHidden(id) {
-//   id.classList.remove("hidden");
-// }
+function checkEmptyStatus(){
+
+  if(currentStatus !== 'btn-all'){
+    if(filterSection.children.length === 0 ){
+      noSubject.classList.remove('hidden')
+  }else{
+      noSubject.classList.add('hidden')
+  }
+  }else{
+    noSubject.classList.add('hidden')
+  }
+}
+
 mainContainer.addEventListener("click", function (e) {
   const currentCard = e.target.closest(".job-card");
   if (!currentCard) return;
@@ -95,13 +87,15 @@ mainContainer.addEventListener("click", function (e) {
       if (!existTitle) {
         interViewList.push(cardInfo);
       }
-      rejectedList = interViewList.filter(
+      rejectedList = rejectedList.filter(
         (item) => item.title != cardInfo.title,
       );
       if (currentStatus === "btn-Rejected") {
         renderRejected();
       }
-      // renderApplication();
+      if(currentStatus === 'btn-interview'){
+        renderApplication()
+      }
       allCounts();
     } else if (e.target.classList.contains("rjc-btn")) {
       const title = currentCard.querySelector(".job-title").innerText;
@@ -127,10 +121,13 @@ mainContainer.addEventListener("click", function (e) {
         rejectedList.push(cardInfo);
       }
       interViewList = interViewList.filter(
-        (item) => item.title != cardInfo.title,
+        (item) => item.title !== cardInfo.title,
       );
       if (currentStatus === "btn-interview") {
         renderApplication();
+      }
+      if (currentStatus === "btn-Rejected") {
+        renderRejected();
       }
       allCounts();
     }
@@ -176,6 +173,7 @@ function renderApplication() {
 `;
     filterSection.append(div);
   }
+  checkEmptyStatus()
 }
 function renderRejected() {
   filterSection.innerHTML = "";
@@ -215,4 +213,5 @@ function renderRejected() {
 `;
     filterSection.append(div);
   }
+  checkEmptyStatus()
 }
