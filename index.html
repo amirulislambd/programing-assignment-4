@@ -64,9 +64,9 @@
       </h1>
       <!-- buttons -->
       <div id="all-cards" class="text-center md:text-start">
-        <button id="btn-all" class="btn btn-primary">All</button>
-        <button id="btn-interview" class="btn btn-soft">Interview</button>
-        <button id="btn-Rejecte" class="btn btn-primary">Rejected</button>
+        <button onclick="toggleBtn('btn-all')" id="btn-all" class="btn">All</button>
+        <button onclick="toggleBtn('btn-interview')" id="btn-interview" class="btn">Interview</button>
+        <button onclick="toggleBtn('btn-Rejected')" id="btn-Rejected" class="btn">Rejected</button>
       </div>
       <!-- cards -->
       <section id="card-section">
@@ -89,7 +89,7 @@
                 Build cross-platform mobile applications using React Native.
                 Work on products used by millions of users worldwide.
               </p>
-              <vid>
+              <vid class="flex gap-2">
                 <button class="btn btn-outline btn-primary">INTERVIEW</button>
                 <button class="btn btn-outline btn-error">REJECTED</button>
               </vid>
@@ -103,9 +103,9 @@
         </div>
       </section>
 
-      <!-- interview section -->
-       <section>
-        <div class="h-screen w-full text-center space-y-2">
+      <!-- filter section -->
+       <section id="filter-section">
+        <div id="no-subject"  class="h-screen w-full text-center space-y-2 hidden">
             <img class="mx-auto" src="./assets/assignment_7959593 1.png" alt="">
             <h3 class="text-xl font-bold">No jobs available</h3>
             <p class="text-sm md:text-lg">Check back soon for new job opportunities</p>
