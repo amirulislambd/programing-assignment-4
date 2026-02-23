@@ -44,11 +44,9 @@ function toggleBtn(id) {
   if (id === "btn-all") {
     allCards.classList.remove("hidden");
     filterSection.classList.add("hidden");
-    if (allCards.children.length === 0) {
-      noSubject.classList.remove("hidden");
-    }else{
-      noSubject.classList.add("hidden");
-    }
+    noSubject.classList.add("hidden");
+  } else if (totalJob.innerText === "0") {
+    noSubject.classList.remove("hidden");
   } else {
     allCards.classList.add("hidden");
     filterSection.classList.remove("hidden");
@@ -71,17 +69,13 @@ function toggleBtn(id) {
 }
 function checkEmptyStatus() {
   if (currentStatus !== "btn-all") {
-    if (allCards.children.length === 0) {
+    if (filterSection.children.length === 0) {
       noSubject.classList.remove("hidden");
     } else {
       noSubject.classList.add("hidden");
     }
   } else {
-    if(filterSection.children.length ===0){
-      noSubject.classList.remove('hidden')
-    }else{
-      noSubject.classList.add("hidden");
-    }
+    noSubject.classList.add("hidden");
   }
 }
 
@@ -166,12 +160,19 @@ mainContainer.addEventListener("click", function (e) {
           (item) => item.title !== titleDelete,
         );
         allCounts();
-        checkEmptyStatus();
-        if (currentStatus === "btn-interview") {
-          renderApplication();
-        }
-        if (currentStatus === "btn-Rejected") {
-          renderRejected();
+        if (currentStatus === "all-card") {
+          if (allCards.children.length === 0) {
+            noSubject.classList.remove("hidden");
+          } else {
+            noSubject.classList.add("hidden");
+          }
+        }else{
+          if(currentStatus === 'btn-interview'){
+            renderApplication()
+          }
+          if(currentStatus === 'btn-Rejected'){
+            renderRejected
+          }
         }
       }
 
