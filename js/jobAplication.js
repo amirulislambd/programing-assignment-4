@@ -1,5 +1,6 @@
 let interViewList = [];
 let rejectedList = [];
+console.log(interViewList.innerText)
 let currentStatus = "All";
 const mainContainer = document.querySelector("main");
 const allCards = document.getElementById("card-section");
@@ -9,12 +10,22 @@ const totalJob = document.getElementById("totalJob");
 const interviewCount = document.getElementById("interview-count");
 const rejectCount = document.getElementById("rejected-count");
 const noSubject = document.getElementById("no-subject");
-// console.log(filterSection.children);
+const totalInterview =document.querySelector(".total-interview")
+const totalRejected =document.querySelector(".total-rejected")
+const totalInterviewCount = document.getElementById('interview-job')
+const totalRejectedCount = document.getElementById('rejected-job')
+
+// const convertToNumber = Number(totalInterviewCount)
+// console.log(totalRejected,totalInterview)
+// console.log(filterSection.children.length);
 function allCounts() {
-  totalCount.innerText = allCards.children.length;
-  totalJob.innerText = allCards.children.length;
   interviewCount.innerText = interViewList.length;
   rejectCount.innerText = rejectedList.length;
+  totalCount.innerText = allCards.children.length;
+  totalJob.innerText = allCards.children.length;
+  totalInterviewCount.innerText =interViewList.length
+  totalRejectedCount.innerText = rejectedList.length
+  // console.log(totalInterview)
 }
 allCounts();
 
@@ -32,6 +43,8 @@ function toggleBtn(id) {
   currentStatus = id;
   selectBtn.classList.remove("btn-soft");
   selectBtn.classList.add("btn-primary");
+  totalInterview.classList.add('hidden')
+  totalRejected.classList.add('hidden')
 
   if (id === "btn-all") {
     allCards.classList.remove("hidden");
@@ -42,8 +55,18 @@ function toggleBtn(id) {
     filterSection.classList.remove('hidden')
   }
   if(id === 'btn-interview'){
+    if(totalInterviewCount.innerText==='0'){
+      totalInterview.classList.add('hidden')
+    }else{
+      totalInterview.classList.remove('hidden')
+    }
     renderApplication()
   }else if(id === 'btn-Rejected'){
+    if(totalRejectedCount.innerText==='0'){
+      totalRejected.classList.add('hidden')
+    }else{
+      totalRejected.classList.remove('hidden')
+    }
     renderRejected()
   }
 }

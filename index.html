@@ -63,7 +63,11 @@
         <h1 class="text-xl text-center md:text-2xl md:text-start">
           Available Jobs
         </h1>
-        <p><span id="totalJob">0</span> jobs</p>
+        <div class="flex gap-1">
+          <p class="total-interview hidden"><span id="interview-job">0</span> of</p>
+          <p class="total-rejected hidden"><span id="rejected-job">0</span> of</p>
+          <p><span id="totalJob">0</span> jobs</p>
+        </div>
       </div>
       <!-- buttons -->
       <div id="all-cards" class="text-center md:text-start">
