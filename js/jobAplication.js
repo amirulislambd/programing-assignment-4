@@ -13,7 +13,6 @@ const totalInterview = document.querySelector(".total-interview");
 const totalRejected = document.querySelector(".total-rejected");
 const totalInterviewCount = document.getElementById("interview-job");
 const totalRejectedCount = document.getElementById("rejected-job");
-// const statusBag =document.getElementById
 
 function allCounts() {
   interviewCount.innerText = interViewList.length;
@@ -90,9 +89,10 @@ mainContainer.addEventListener("click", function (e) {
       const subtitle = currentCard.querySelector(".job-subTitle").innerText;
       const category = currentCard.querySelector(".job-category").innerText;
       const status = currentCard.querySelector(".job-status").innerText;
-      const statusBag = currentCard.querySelector('.job-status')
-      statusBag.className = "job-status py-2 px-4 border border-green-500 text-green-500 rounded bg-green-100 shadow-sm"
-      statusBag.innerText = 'INTERVIEW'
+      const statusBag = currentCard.querySelector(".job-status");
+      statusBag.className =
+        "job-status py-2 px-4 border border-green-500 text-green-500 rounded bg-green-100 shadow-sm";
+      statusBag.innerText = "INTERVIEW";
       const description =
         currentCard.querySelector(".job-description").innerText;
       currentCard.querySelector(".job-status").innerText = "INTERVIEW";
@@ -125,10 +125,12 @@ mainContainer.addEventListener("click", function (e) {
       const subtitle = currentCard.querySelector(".job-subTitle").innerText;
       const category = currentCard.querySelector(".job-category").innerText;
       const status = currentCard.querySelector(".job-status").innerText;
-      const statusBag = currentCard.querySelector('.job-status')
-      statusBag.className = "job-status py-2 px-4 border border-red-500 text-red-500 rounded bg-red-100 shadow-sm"
-      statusBag.innerText = 'REJECTED'
-      const description = currentCard.querySelector(".job-description").innerText;
+      const statusBag = currentCard.querySelector(".job-status");
+      statusBag.className =
+        "job-status py-2 px-4 border border-red-500 text-red-500 rounded bg-red-100 shadow-sm";
+      statusBag.innerText = "REJECTED";
+      const description =
+        currentCard.querySelector(".job-description").innerText;
       // interview
       currentCard.querySelector(".job-status").innerText = "REJECTED";
       const cardInfo = {
@@ -172,12 +174,12 @@ mainContainer.addEventListener("click", function (e) {
           } else {
             noSubject.classList.add("hidden");
           }
-        }else{
-          if(currentStatus === 'btn-interview'){
-            renderApplication()
+        } else {
+          if (currentStatus === "btn-interview") {
+            renderApplication();
           }
-          if(currentStatus === 'btn-Rejected'){
-            renderRejected
+          if (currentStatus === "btn-Rejected") {
+            renderRejected;
           }
         }
       }
